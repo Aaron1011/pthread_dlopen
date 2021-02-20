@@ -19,6 +19,8 @@ void *other_thread_fn(void *arg) {
     }
     printf("Calling my_fn\n");
     my_fn();
+
+    // Comment out this line to stop the crash
     dlclose(lib);
     return NULL;
 }
