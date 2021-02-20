@@ -7,7 +7,19 @@ void my_dtor() {
     printf("Called destructor\n");
 }
 
+void *my_thread_fn(void *arg) {
+    printf("Thread starting\n");
+    pthread_setspecific(key, (void *) 1);
+    printf("Thread exitingg\n");
+    return NULL;
+}
+
 void my_fn() {
     printf("Creating pthread key!\n");
     pthread_key_create(&key, my_dtor);
+
+    pthread_t tid;
+    pthread_create(&tid, NULL, &my_thread_fn, NULL);
+    pthread_join(tid, NULL);
+    printf("Back in my_fn\n");
 }
